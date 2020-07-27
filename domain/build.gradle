@@ -2,17 +2,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def ext = rootProject.ext
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "28.0.3"
-
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.compileBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode ext.versionCode
+        versionName ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -29,14 +29,11 @@ android {
 
 dependencies {
 
-    def dependencies = rootProject.ext.dependencies
-    def testDependencies = rootProject.ext.testDependecies
+    implementation ext.libraries.kotlin
+    implementation ext.libraries.rxJava
+    implementation ext.libraries.koin
 
-    implementation dependencies.kotlin
-    implementation dependencies.rxJava
-    implementation dependencies.koin
-
-    testImplementation testDependencies.junit
-    androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espresso
+    testImplementation ext.libraries.junit
+    androidTestImplementation ext.libraries.runner
+    androidTestImplementation ext.libraries.espresso
 }

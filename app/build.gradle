@@ -2,16 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def ext = rootProject.ext
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.compileBuildToolsVersion
 
     defaultConfig {
-        applicationId "br.com.bruno.modularizationexmaple"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId ext.applicationId
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode ext.versionCode
+        versionName ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,16 +26,15 @@ android {
 }
 
 dependencies {
-    def dependencies = rootProject.ext.dependencies
-    def testDependencies = rootProject.ext.testDependecies
+    implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation dependencies.kotlin
-    implementation dependencies.appcompat
-    implementation dependencies.corektx
-    implementation dependencies.constraintlayout
-    implementation dependencies.koin
+    implementation ext.libraries.kotlin
+    implementation ext.libraries.appcompat
+    implementation ext.libraries.corektx
+    implementation ext.libraries.constraintlayout
+    implementation ext.libraries.koin
 
-    testImplementation testDependencies.junit
-    androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espresso
+    testImplementation ext.libraries.junit
+    androidTestImplementation ext.libraries.runner
+    androidTestImplementation ext.libraries.espresso
 }
